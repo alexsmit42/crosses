@@ -14047,7 +14047,7 @@ function updateLink (link, options, obj) {
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $ = __webpack_require__(6);
+let $ = __webpack_require__(6);
 window.jQuery = $;
 window.$ = $;
 
@@ -20371,6 +20371,14 @@ $(document).ready(function () {
 
         socket.emit('changeRole', userID, newRole);
     });
+
+    socket.on('onlineUsers', function (countUsers) {
+        $('#count-online-users').text(countUsers);
+    });
+
+    socket.on('registeredUsers', function (countUsers) {
+        $('#count-registered-users').text(countUsers);
+    });
 });
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
 
@@ -23877,7 +23885,7 @@ exports = module.exports = __webpack_require__(21)(undefined);
 
 
 // module
-exports.push([module.i, ".register, .login {\n  margin: 20px; }\n  .register .error, .login .error {\n    color: red; }\n  .register label, .login label {\n    width: 100px; }\n  .register .register-link, .register .login-link, .login .register-link, .login .login-link {\n    margin-left: 20px; }\n\n.online-user {\n  margin: 0 10px; }\n", ""]);
+exports.push([module.i, ".register, .login {\n  margin: 20px; }\n  .register .error, .login .error {\n    color: red; }\n  .register label, .login label {\n    width: 100px; }\n  .register .register-link, .register .login-link, .login .register-link, .login .login-link {\n    margin-left: 20px; }\n\n.online-user {\n  margin: 0 10px; }\n\n.stat-value {\n  margin-left: 10px;\n  font-weight: bold; }\n", ""]);
 
 // exports
 

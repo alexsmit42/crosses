@@ -1,5 +1,6 @@
 let User = require(__base + '/models/user');
 let {logger, mongoLogger} = require(__base + '/utils/logger');
+let redis = require(__base + '/utils/redis');
 
 module.exports = function(server) {
     let io = require('socket.io').listen(server);
@@ -15,5 +16,17 @@ module.exports = function(server) {
                     mongoLogger.error(err);
                 });
         });
+
+        (async() => {
+            let users = await redis.getOnlineUsers();
+
+            socket.emit('onlineUsers', users.length);
+        })();
+
+        User.count({})
+            .then(count => {
+                socket.emit('registeredUsers', count);
+            });
     });
+
 };

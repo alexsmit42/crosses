@@ -19,12 +19,11 @@ module.exports = {
         });
     },
     loginAction: function(req, res) {
-        let currentTime = new Date();
-
+        let currentTime= new Date();
         User.findOneAndUpdate({_id: req.user._id}, {lastEnter: currentTime}, {})
             .then(user => {
-                redis.hset('online', req.user.username, currentTime);
-                logger.info(`User "${req.user.username}" entered the site`);
+                redis.addOnlineUser(user);
+                logger.info(`User "${user.username}" entered the site`);
                 res.redirect('/');
             });
     },
@@ -65,9 +64,8 @@ module.exports = {
                         res.redirect('register');
                     }
 
-                    let currentTime = new Date();
-                    redis.hset('online', user.username, currentTime);
-                    logger.info(`User "${req.user.username}" registered on the site`);
+                    redis.addOnlineUser(user);
+                    logger.info(`User "${user.username}" registered on the site`);
 
                     res.redirect('/');
                 });
@@ -79,9 +77,9 @@ module.exports = {
             });
     },
     logout: function(req, res) {
-        redis.hdel('online', req.user.username);
+        redis.removeOnlineUser(req.user);
         logger.info(`User "${req.user.username}" left the site`);
-        req.logout();
+        req.session.destroy();
 
         res.redirect('/');
     }

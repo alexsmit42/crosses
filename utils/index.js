@@ -12,8 +12,5 @@ module.exports = {
             pageTitle += ' - ' + str;
         }
         return pageTitle;
-    },
-    getOnlineUsers: async function() {
-        return redis.hkeysAsync('online');
     }
 };

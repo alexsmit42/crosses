@@ -11,7 +11,7 @@ block content
         span &nbsp;/&nbsp;
         a(href="/login") Login
 
-    if online
+    if online.length
         div
             strong Online users:
             each onlineUser in online

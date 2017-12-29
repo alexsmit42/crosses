@@ -9,19 +9,20 @@ module.exports = function(app, express) {
     let flash = require('connect-flash');
     let favicon = require('serve-favicon');
     let redisStore = require('connect-redis')(session);
+    let config = require('config');
     let errorHandler = require(__base + '/utils/error-handler');
 
     /* Helmet */
     app.use(helmet());
 
-    /* Cookies */
+    /* Cookies and Sessions */
     app.use(session({
             secret: process.env.SECRET_SESSION,
-            saveUninitialized: true,
-            resave: false,
+            resave: true,
+            saveUninitialized: false,
             store: new redisStore({
-                host: 'localhost',
-                port: 6379
+                host: config.get('redis.host'),
+                port: config.get('redis.port')
             })
         })
     );

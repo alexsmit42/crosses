@@ -6,6 +6,7 @@ let protect = require(__base + '/utils/protect-pages');
 
 let router = express.Router();
 
+
 router.get('/login', protect.authPage, auth.loginPage);
 router.post('/login',
     passport.authenticate('local', {
