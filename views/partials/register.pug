@@ -1,0 +1,24 @@
+extends ../layout.pug
+include ../mixins/error-msg.pug
+
+block content
+    .register
+        h4 Registration
+
+        +errorMsg(error)
+
+        .container-fluid
+
+            form(role="form", method="post", action="/register")
+                .form-group.row
+                    label(for="email") Email
+                    input(type="email", name="email", id="email")
+                .form-group.row
+                    label(for="username") Name
+                    input(type="text", name="username", id="username")
+                .form-group.row
+                    label(for="password") Password
+                    input(type="password", name="password", id="password")
+                .form-group.row
+                    button(type="submit") Register
+                    a(href="/login", class="login-link") Sign in

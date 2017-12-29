@@ -1,0 +1,18 @@
+extends ../layout.pug
+
+block content
+    h4 Main page
+
+    if user
+        p Hello, #{user.username}!
+        a(href="/logout") Logout
+    else
+        a(href="/register") Registration
+        span &nbsp;/&nbsp;
+        a(href="/login") Login
+
+    if online
+        div
+            strong Online users:
+            each onlineUser in online
+                span(class="online-user")= onlineUser

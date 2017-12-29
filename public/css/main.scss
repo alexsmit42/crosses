@@ -1,0 +1,19 @@
+.register, .login {
+    margin: 20px;
+
+    .error {
+        color: red;
+    }
+
+    label {
+        width: 100px;
+    }
+
+    .register-link, .login-link {
+        margin-left: 20px;
+    }
+}
+
+.online-user {
+    margin: 0 10px;
+}
