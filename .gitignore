@@ -1,3 +1,5 @@
+.env
 .idea
+config/default.json
 logs
 node_modules

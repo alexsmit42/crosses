@@ -6,16 +6,14 @@ let redis = require(__base + '/utils/redis');
 module.exports = {
     indexPage: function(req, res) {
 
-        redis.hkeys('online', function(err, users) {
-            if(!users.length) {
-                users = false;
-            }
+        (async () => {
+            let users = await utils.getOnlineUsers();
 
             res.render('partials/index', {
                 title: utils.pageTitle(''),
                 user: req.user,
                 online: users
             });
-        });
+        })();
     }
 };

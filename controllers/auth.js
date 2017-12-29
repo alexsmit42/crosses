@@ -24,7 +24,6 @@ module.exports = {
         User.findOneAndUpdate({_id: req.user._id}, {lastEnter: currentTime}, {})
             .then(user => {
                 redis.hset('online', req.user.username, currentTime);
-
                 logger.info(`User "${req.user.username}" entered the site`);
                 res.redirect('/');
             });
@@ -65,8 +64,10 @@ module.exports = {
                         req.flash('error', err);
                         res.redirect('register');
                     }
+
                     let currentTime = new Date();
                     redis.hset('online', user.username, currentTime);
+                    logger.info(`User "${req.user.username}" registered on the site`);
 
                     res.redirect('/');
                 });
@@ -79,7 +80,6 @@ module.exports = {
     },
     logout: function(req, res) {
         redis.hdel('online', req.user.username);
-
         logger.info(`User "${req.user.username}" left the site`);
         req.logout();
 

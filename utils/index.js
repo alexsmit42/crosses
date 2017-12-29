@@ -1,4 +1,5 @@
 let crypto = require('crypto-js/sha256');
+let redis = require(__base + '/utils/redis');
 
 module.exports = {
 
@@ -11,5 +12,8 @@ module.exports = {
             pageTitle += ' - ' + str;
         }
         return pageTitle;
+    },
+    getOnlineUsers: async function() {
+        return redis.hkeysAsync('online');
     }
 };
