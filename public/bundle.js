@@ -14052,6 +14052,7 @@ window.jQuery = $;
 window.$ = $;
 
 __webpack_require__(24);
+__webpack_require__(55);
 __webpack_require__(25);
 
 __webpack_require__(50);
@@ -20361,7 +20362,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io_client__);
 
 
-const socket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default()('http://localhost:3000/admin');
+const adminSocket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default()('http://localhost:3000/admin');
 
 $(document).ready(function () {
 
@@ -20369,14 +20370,14 @@ $(document).ready(function () {
         let userID = $(this).closest('tr').attr('user-id');
         let newRole = $(this).prop('checked') ? 'admin' : 'user';
 
-        socket.emit('changeRole', userID, newRole);
+        adminSocket.emit('changeRole', userID, newRole);
     });
 
-    socket.on('onlineUsers', function (countUsers) {
+    adminSocket.on('onlineUsers', function (countUsers) {
         $('#count-online-users').text(countUsers);
     });
 
-    socket.on('registeredUsers', function (countUsers) {
+    adminSocket.on('registeredUsers', function (countUsers) {
         $('#count-registered-users').text(countUsers);
     });
 });
@@ -23889,6 +23890,25 @@ exports.push([module.i, ".register, .login {\n  margin: 20px; }\n  .register .er
 
 // exports
 
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_socket_io_client__);
+
+
+const gameSocket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default()('http://localhost:3000/game');
+
+$(document).ready(function () {
+    $('#create-game').on('click', function () {
+        gameSocket.emit('createGame');
+    });
+});
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
 
 /***/ })
 /******/ ]);

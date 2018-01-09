@@ -16,3 +16,7 @@ block content
             strong Online users:
             each onlineUser in online
                 span(class="online-user")= onlineUser
+
+    if user
+        div
+            button(id="create-game") Create game

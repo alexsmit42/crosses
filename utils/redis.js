@@ -15,5 +15,8 @@ module.exports = {
     },
     getOnlineUsers: async function() {
         return redisClient.hkeysAsync('online');
+    },
+    getGameRooms: async function() {
+        return [];
     }
 };

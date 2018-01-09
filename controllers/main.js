@@ -6,6 +6,7 @@ module.exports = {
 
         (async () => {
             let users = await redis.getOnlineUsers();
+            let rooms = await redis.getGameRooms();
 
             res.render('partials/index', {
                 title: utils.pageTitle(''),

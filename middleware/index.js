@@ -1,4 +1,4 @@
-module.exports = function(app, express) {
+module.exports = function(app, express, server) {
     let path = require('path');
     let helmet = require('helmet');
     let bodyParser = require('body-parser');
@@ -16,18 +16,21 @@ module.exports = function(app, express) {
     app.use(helmet());
 
     /* Cookies and Sessions */
-    app.use(session({
-            secret: process.env.SECRET_SESSION,
-            resave: true,
-            saveUninitialized: false,
-            store: new redisStore({
-                host: config.get('redis.host'),
-                port: config.get('redis.port')
-            })
+    let sessionMiddleware = session({
+        secret: process.env.SECRET_SESSION,
+        resave: true,
+        saveUninitialized: false,
+        store: new redisStore({
+            host: config.get('redis.host'),
+            port: config.get('redis.port')
         })
-    );
+    });
+    app.use(sessionMiddleware);
     app.use(cookieParser(process.env.SECRET_COOKIE));
     app.use(flash());
+
+    /* Sockets */
+    require(__base + '/utils/socket.js')(server, sessionMiddleware);
 
     /* Favicon */
     app.use(favicon(path.join(__base, 'public/favicon', 'favicon.ico')));

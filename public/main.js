@@ -3,6 +3,7 @@ window.jQuery = $;
 window.$ = $;
 
 require('bootstrap/dist/js/bootstrap.bundle.js');
+require('./js/site.js');
 require('./js/admin.js');
 
 require('bootstrap/dist/css/bootstrap.css');

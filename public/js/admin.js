@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000/admin');
+const adminSocket = io('http://localhost:3000/admin');
 
 $(document).ready(function() {
 
@@ -8,14 +8,14 @@ $(document).ready(function() {
         let userID = $(this).closest('tr').attr('user-id');
         let newRole = $(this).prop('checked') ? 'admin' : 'user';
 
-        socket.emit('changeRole', userID, newRole);
+        adminSocket.emit('changeRole', userID, newRole);
     });
 
-    socket.on('onlineUsers', function(countUsers) {
+    adminSocket.on('onlineUsers', function(countUsers) {
         $('#count-online-users').text(countUsers);
     });
 
-    socket.on('registeredUsers', function(countUsers) {
+    adminSocket.on('registeredUsers', function(countUsers) {
         $('#count-registered-users').text(countUsers);
     });
 });
